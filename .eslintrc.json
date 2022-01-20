@@ -1,39 +1,46 @@
 {
-  "plugins": [
-    "functional"
-  ],
-  "extends": [
-    "airbnb",
-    "plugin:jest/recommended",
-    "plugin:functional/external-recommended",
-    "plugin:functional/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended"
-  ],
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "node": true,
-    "jest": true
-  },
-  "settings": {
-    "import/resolver": [
-      "node",
-      "webpack"
-    ]
-  },
-  "rules": {
-    "import/extensions": 0,
-    "react/prop-types": 0,
-    "no-console": 0,
-    "functional/no-conditional-statement": 0,
-    "functional/no-expression-statement": 0,
-    "functional/immutable-data": 0,
-    "functional/functional-parameters": 0,
-    "functional/no-try-statement": 0,
-    "functional/no-throw-statement": 0
-  }
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "google"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "react",
+        "react-hooks",
+        "prettier",
+        "jest"
+    ],
+    "rules": {
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["warn"],
+        "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["warn"],
+        "react-hooks/rules-of-hooks": "warn",
+        "react-hooks/exhaustive-deps": "warn",
+        "import/prefer-default-export": "off",
+        "react/prop-types": "off",
+        "require-jsdoc": 0,
+        "object-curly-spacing": [1, "always"],
+        "no-dupe-args": "warn",
+        "no-console": "off",
+        "max-len": ["warn", { "code": 100 }],
+        "no-trailing-spaces": "off",
+        "operator-linebreak": "off",
+        "linebreak-style": "off",
+        "indent": "off"
+    }
 }
