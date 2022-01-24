@@ -10,10 +10,18 @@ export const fetchAllDicts = createAsyncThunk(
   },
 );
 
-export const fetchDictDescription = createAsyncThunk(
-  'dictionary/description',
+export const fetchCurrentDict = createAsyncThunk(
+  'dictionary/current',
   async (oid: string) => {
     const response = await DictsService.getCurrentDict(oid);
+    return response.data;
+  },
+);
+
+export const fetchCurrentDictDescription = createAsyncThunk(
+  'dictionary/description',
+  async (oid: string) => {
+    const response = await DictsService.getCurrentDictDescription(oid);
     return response.data;
   },
 );

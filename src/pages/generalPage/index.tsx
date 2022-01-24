@@ -47,9 +47,6 @@ const GeneralPage: React.FC = () => {
                       <span>{dict.oid}</span>
                     </div>
                     <div className="dictBlock__version">
-                      <p style={{ color: '#007f00', background: '#cdffcd' }}>
-                        <i className="fas fa-circle"></i><span>Relevant</span>
-                      </p>
                       <span className="version">{dict.version}</span>
                     </div>
                     <div className="dictBlock__updated">

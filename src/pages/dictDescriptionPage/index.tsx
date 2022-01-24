@@ -3,7 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import './style.scss';
 
-import { fetchDictDescription } from '../../store/reducers/actionCreators';
+import {
+  fetchCurrentDict,
+  fetchCurrentDictDescription,
+} from '../../store/reducers/actionCreators';
 import Loader from '../../components/Loader';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
@@ -12,15 +15,22 @@ const DictDescriptionPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { currentDict, loading } = useAppSelector((state) => state.dictsReducer);
+  const {
+    currentDict,
+    currentDictDescription,
+    loading } = useAppSelector((state) => state.dictsReducer);
+  const currentLocation = location.pathname.slice(1);
 
   useEffect(() => {
-    dispatch(fetchDictDescription(location.pathname.slice(1)));
+    dispatch(fetchCurrentDict(currentLocation));
+    dispatch(fetchCurrentDictDescription(currentLocation));
   }, []);
 
   return (
     <div className="dictDescriptionPage">
-      <p className="pageTitle">OID: {location.pathname.slice(1)}</p>
+      <p className="pageTitle">
+        { currentDictDescription && currentDictDescription.dictionaryName }
+      </p>
 
       <div className="table">
         <div className="table__header">
@@ -28,14 +38,14 @@ const DictDescriptionPage: React.FC = () => {
             <button onClick={() => navigate('/')}><i className="fas fa-arrow-left" /></button>
           </div>
         </div>
-        <div className="table__columnNamesSection">
-          {
-            currentDict && Object.keys(currentDict[0]).map((value, key) => {
-              return <p key={key}>{value !== '' ? value : 'Неизвестно'}</p>;
-            })
-          }
-        </div>
         <div className="table__contentSection">
+          <div className="table__contentSection_line table__contentSection_names">
+            {
+              currentDict && Object.keys(currentDict[0]).map((value, key) => {
+                return <p key={key}>{value !== '' ? value : 'Неизвестно'}</p>;
+              })
+            }
+          </div>
           {
             currentDict && currentDict.map((obj, key) => {
               return (
@@ -60,7 +70,20 @@ const DictDescriptionPage: React.FC = () => {
             loading && <Loader />
           }
         </div>
-        <div className="table__footer"></div>
+        <div className="table__footer">
+          {/* <div className="table__footer_version"> */}
+          {/*   /!* Сервер не возвращает версию при получении отдельного словаря */}
+          {/*   и ошибки cors при получении запросов от nsi росминздрава *!/ */}
+          {/*   <p className="version">Version: <span>?</span></p> */}
+          {/*   <p */}
+          {/*     className="relevant" */}
+          {/*     style={{ color: '#007f00', background: '#cdffcd', border: '1px solid #007f00' }} */}
+          {/*   > */}
+          {/*     <i className="fas fa-circle"></i> */}
+          {/*     <span>Relevant</span> */}
+          {/*   </p> */}
+          {/* </div> */}
+        </div>
       </div>
     </div>
   );

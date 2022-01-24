@@ -6,12 +6,17 @@ import {
 } from '@reduxjs/toolkit';
 
 import { IDict } from '../../models/IDict';
-import { fetchAllDicts, fetchDictDescription } from './actionCreators';
+import { IDictDescription } from '../../models/IDictDescription';
+import {
+  fetchAllDicts,
+  fetchCurrentDict, fetchCurrentDictDescription,
+} from './actionCreators';
 
 export interface DictsState {
   allDicts: IDict[];
   showedInGeneralPageDicts: IDict[];
   currentDict: Array<object>;
+  currentDictDescription: IDictDescription | null;
   loading: boolean;
   error: SerializedError | null;
 }
@@ -20,6 +25,7 @@ const initialState: DictsState = {
   allDicts: [],
   showedInGeneralPageDicts: [],
   currentDict: [{}],
+  currentDictDescription: null,
   loading: false,
   error: null,
 };
@@ -83,34 +89,48 @@ export const dictsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(fetchAllDicts.pending, (state) => {
-          state.loading = true;
-          state.error = null;
-        })
-        .addCase(fetchAllDicts.fulfilled, (state, action) => {
-          state.allDicts = action.payload;
-          state.showedInGeneralPageDicts = state.allDicts;
-          state.loading = false;
-          state.error = null;
-        })
-        .addCase(fetchAllDicts.rejected, (state, action) => {
-          state.loading = false;
-          state.error = action.error;
-        });
+      .addCase(fetchAllDicts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllDicts.fulfilled, (state, action) => {
+        state.allDicts = action.payload;
+        state.showedInGeneralPageDicts = state.allDicts;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchAllDicts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      });
     builder
-        .addCase(fetchDictDescription.pending, (state) => {
-          state.loading = true;
-          state.error = null;
-        })
-        .addCase(fetchDictDescription.fulfilled, (state, action) => {
-          state.currentDict = action.payload;
-          state.loading = false;
-          state.error = null;
-        })
-        .addCase(fetchDictDescription.rejected, (state, action) => {
-          state.loading = false;
-          state.error = action.error;
-        });
+      .addCase(fetchCurrentDict.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCurrentDict.fulfilled, (state, action) => {
+        state.currentDict = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchCurrentDict.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      });
+    builder
+      .addCase(fetchCurrentDictDescription.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCurrentDictDescription.fulfilled, (state, action) => {
+        state.currentDictDescription = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchCurrentDictDescription.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      });
   },
 });
 

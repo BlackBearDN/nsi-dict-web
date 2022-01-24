@@ -27,7 +27,7 @@ $border: #d9d5ec;
   }
 
   .table {
-    width: calc(100% - 135px);
+    width: calc(100vw - 100px);
     margin: 10px 50px;
     background: $white;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
@@ -87,7 +87,7 @@ $border: #d9d5ec;
         text-transform: uppercase;
         color: $darkGrayBlue;
         &:nth-child(1) {
-          width: 70%;
+          width: calc(70% - 8px);
         }
         &:nth-child(2) {
           width: 10%;
@@ -146,21 +146,6 @@ $border: #d9d5ec;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          p {
-            width: fit-content;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 15px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            margin: 5px 0;
-            display: flex;
-            align-items: center;
-            i {
-              font-size: 5px;
-              margin-right: 5px;
-            }
-          }
           .version {
             color: $darkGrayBlue;
             font-weight: 500;
