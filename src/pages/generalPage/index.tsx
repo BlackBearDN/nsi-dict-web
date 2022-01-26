@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './style.scss';
 
-import { fetchAllDicts } from '../../store/reducers/actionCreators';
+import { fetchAllDicts } from '../../store/actionCreators';
 import Loader from '../../components/Loader';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { searchDicts } from '../../store/reducers/dictsSlice';

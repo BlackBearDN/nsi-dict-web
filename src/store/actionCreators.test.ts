@@ -1,4 +1,4 @@
-import reducer, { DictsState } from '../../store/reducers/dictsSlice';
+import reducer, { DictsState } from '../store/reducers/dictsSlice';
 import { fetchAllDicts, fetchCurrentDict, fetchCurrentDictDescription } from './actionCreators';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 

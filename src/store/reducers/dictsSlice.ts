@@ -9,13 +9,14 @@ import { IDict } from '../../models/IDict';
 import { IDictDescription } from '../../models/IDictDescription';
 import {
   fetchAllDicts,
-  fetchCurrentDict, fetchCurrentDictDescription,
-} from './actionCreators';
+  fetchCurrentDict,
+  fetchCurrentDictDescription,
+} from '../actionCreators';
 
 export interface DictsState {
   allDicts: IDict[];
   showedInGeneralPageDicts: IDict[];
-  currentDict: Array<any>;
+  currentDict: any[] | null;
   currentDictDescription: IDictDescription | null;
   loading: boolean;
   error: SerializedError | null;
@@ -24,7 +25,7 @@ export interface DictsState {
 const initialState: DictsState = {
   allDicts: [],
   showedInGeneralPageDicts: [],
-  currentDict: [{}],
+  currentDict: null,
   currentDictDescription: null,
   loading: false,
   error: null,
@@ -39,8 +40,8 @@ export const dictsSlice = createSlice({
     searchDicts: (state, action: PayloadAction<string>) => {
       const inputValue: string = action.payload;
       const indexList: number[] = [];
-      let currentObj: (string | number)[];
 
+      // search substring in string
       function match(str: string, sub: string) {
         str = '' + str;
         sub = '' + sub;
@@ -66,14 +67,14 @@ export const dictsSlice = createSlice({
       }
 
       // search needed elements indexes
-      for (let i = 0; i < state.allDicts.length; i++) {
-        currentObj = Object.values(state.allDicts[i]);
-        for (let j = 0; j < currentObj.length; j++) {
-          if ( match(currentObj[j].toString().toLowerCase(), inputValue.toLowerCase()) ) {
+      state.allDicts.forEach((dict, i) => {
+        const values: (string | number)[] = Object.values(dict);
+        values.forEach((value) => {
+          if ( match(value.toString().toLowerCase(), inputValue.toLowerCase()) ) {
             indexList[indexList.length] = i;
           }
-        }
-      }
+        });
+      });
 
       // remove repeat indexes
       const uniqueIndexes: number[] = indexList.filter(function(item, pos) {
@@ -82,9 +83,13 @@ export const dictsSlice = createSlice({
 
       // set to showedInGeneralPageDicts searched results
       state.showedInGeneralPageDicts = [];
-      for (let i = 0; i < uniqueIndexes.length; i++) {
-        state.showedInGeneralPageDicts[i] = state.allDicts[uniqueIndexes[i]];
-      }
+      uniqueIndexes.forEach((value, i) => {
+        state.showedInGeneralPageDicts[i] = state.allDicts[value];
+      });
+    },
+
+    setNullCurrentDictArray(state) {
+      state.currentDict = null;
     },
   },
   extraReducers: (builder) => {
@@ -134,5 +139,5 @@ export const dictsSlice = createSlice({
   },
 });
 
-export const { searchDicts } = dictsSlice.actions;
+export const { searchDicts, setNullCurrentDictArray } = dictsSlice.actions;
 export default dictsSlice.reducer;

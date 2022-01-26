@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import DictsService from '../../services/DictsService';
+import { getAllDicts, getCurrentDict, getCurrentDictDescription } from '../services/DictsService';
 
 export const fetchAllDicts = createAsyncThunk(
   'dictionary',
   async () => {
-    const response = await DictsService.getAllDicts();
+    const response = await getAllDicts();
     return response.data;
   },
 );
@@ -13,7 +13,7 @@ export const fetchAllDicts = createAsyncThunk(
 export const fetchCurrentDict = createAsyncThunk(
   'dictionary/current',
   async (oid: string) => {
-    const response = await DictsService.getCurrentDict(oid);
+    const response = await getCurrentDict(oid);
     return response.data;
   },
 );
@@ -21,7 +21,7 @@ export const fetchCurrentDict = createAsyncThunk(
 export const fetchCurrentDictDescription = createAsyncThunk(
   'dictionary/description',
   async (oid: string) => {
-    const response = await DictsService.getCurrentDictDescription(oid);
+    const response = await getCurrentDictDescription(oid);
     return response.data;
   },
 );

@@ -4,16 +4,11 @@ import { $nsiApi } from '../http';
 import { IDict } from '../models/IDict';
 import { IDictDescription } from '../models/IDictDescription';
 
-export default class DictsService {
-  static async getAllDicts(): Promise<AxiosResponse<IDict[]>> {
-    return $nsiApi.get<IDict[]>('/dictionary');
-  }
+export const getAllDicts = async (): Promise<AxiosResponse<IDict[]>> =>
+  $nsiApi.get<IDict[]>('/dictionary');
 
-  static async getCurrentDict(oid: string): Promise<AxiosResponse<Array<object>>> {
-    return $nsiApi.get<Array<object>>(`/dictionary/${oid}`);
-  }
+export const getCurrentDict = async (oid: string): Promise<AxiosResponse<Array<object>>> =>
+  $nsiApi.get<Array<object>>(`/dictionary/${oid}`);
 
-  static async getCurrentDictDescription(oid: string): Promise<AxiosResponse<IDictDescription>> {
-    return $nsiApi.get<IDictDescription>(`/dictionary/description/${oid}`);
-  }
-}
+export const getCurrentDictDescription = (oid: string): Promise<AxiosResponse<IDictDescription>> =>
+  $nsiApi.get<IDictDescription>(`/dictionary/description/${oid}`);
