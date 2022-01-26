@@ -39,35 +39,44 @@ const DictDescriptionPage: React.FC = () => {
           </div>
         </div>
         <div className="table__contentSection">
-          <div className="table__contentSection_line table__contentSection_names">
-            {
-              currentDict && Object.keys(currentDict[0]).map((value, key) => {
-                return <p key={key}>{value !== '' ? value : 'Неизвестно'}</p>;
-              })
-            }
-          </div>
           {
-            currentDict && currentDict.map((obj, key) => {
-              return (
-                <div className="table__contentSection_line" key={key}>
+            currentDict.length !== 0 ?
+                <div>
+                  <div className="table__contentSection_line table__contentSection_names">
+                    {
+                        currentDict && Object.keys(currentDict[0]).map((value, key) => {
+                          return <p key={key}>{value !== '' ? value : 'Неизвестно'}</p>;
+                        })
+                    }
+                  </div>
                   {
-                    Object.values(obj)
-                      .map((value, key) => {
+                      currentDict && currentDict.map((obj, key) => {
                         return (
-                          <p key={key}>
-                            {typeof value == 'boolean' && (value ? 'Да' : 'Нет')}
-                            {typeof value == 'string' && value}
-                            {typeof value == 'number' && value.toString()}
-                          </p>
+                            <div className="table__contentSection_line" key={key}>
+                              {
+                                Object.values(obj)
+                                    .map((value, key) => {
+                                      return (
+                                          <p key={key}>
+                                            {typeof value == 'boolean' && (value ? 'Да' : 'Нет')}
+                                            {typeof value == 'string' && value}
+                                            {typeof value == 'number' && value.toString()}
+                                          </p>
+                                      );
+                                    })
+                              }
+                            </div>
                         );
                       })
                   }
+                  {
+                      loading && <Loader />
+                  }
                 </div>
-              );
-            })
-          }
-          {
-            loading && <Loader />
+                :
+                <div className="table__nullContentSection">
+                  <p>Данная таблица не имеет ячеек</p>
+                </div>
           }
         </div>
         <div className="table__footer">

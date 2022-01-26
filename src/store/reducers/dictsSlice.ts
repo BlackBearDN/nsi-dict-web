@@ -15,7 +15,7 @@ import {
 export interface DictsState {
   allDicts: IDict[];
   showedInGeneralPageDicts: IDict[];
-  currentDict: Array<object>;
+  currentDict: Array<any>;
   currentDictDescription: IDictDescription | null;
   loading: boolean;
   error: SerializedError | null;
