@@ -108,14 +108,4 @@ describe('DictsSlice', () => {
       ids: [],
     });
   });
-  // it('call search without spaces', () => {
-  //   const store = setupStore();
-  //   render(
-  //     <Provider store={store}>
-  //       <GeneralPage />
-  //     </Provider>,
-  //   );
-  //   userEvent.type(screen.getByRole('searchbox'), 'орг');
-  //   expect(searchDicts).toHaveBeenCalledTimes(3);
-  // });
 });

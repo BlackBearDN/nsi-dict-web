@@ -41,12 +41,14 @@ export const dictsSlice = createSlice({
       const subString: string = action.payload;
       state.showedInGeneralPageDicts = [];
 
-      state.allDicts.forEach((obj) => {
-        const curObj = Object.values(obj);
-        curObj.forEach((value) => {
-          value.toString().toLowerCase().includes(subString.toLowerCase()) &&
+      state.allDicts.forEach((obj: IDict) => {
+        const objValues = Object.values(obj);
+        for (const value of objValues) {
+          if (value.toString().toLowerCase().includes(subString.toLowerCase())) {
             state.showedInGeneralPageDicts.push(obj);
-        });
+            break;
+          }
+        }
       });
     },
 
