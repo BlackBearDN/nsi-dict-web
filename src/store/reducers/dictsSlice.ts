@@ -38,53 +38,15 @@ export const dictsSlice = createSlice({
   initialState: dictsAdapter.getInitialState(initialState),
   reducers: {
     searchDicts: (state, action: PayloadAction<string>) => {
-      const inputValue: string = action.payload;
-      const indexList: number[] = [];
-
-      // search substring in string
-      function match(str: string, sub: string) {
-        str = '' + str;
-        sub = '' + sub;
-        if (sub.length > str.length) {
-          return false;
-        }
-
-        const interval = str.length - sub.length + 1;
-        for (let i = 0; i < interval; i++) {
-          let res = 0;
-          for (let u = 0; u < sub.length; u++) {
-            if ( str[i+u] !== sub[u] ) {
-              break;
-            } else {
-              res++;
-            }
-          }
-          if ( res === sub.length ) {
-            return true;
-          }
-        }
-        return false;
-      }
-
-      // search needed elements indexes
-      state.allDicts.forEach((dict, i) => {
-        const values: (string | number)[] = Object.values(dict);
-        values.forEach((value) => {
-          if ( match(value.toString().toLowerCase(), inputValue.toLowerCase()) ) {
-            indexList[indexList.length] = i;
-          }
-        });
-      });
-
-      // remove repeat indexes
-      const uniqueIndexes: number[] = indexList.filter(function(item, pos) {
-        return indexList.indexOf(item) == pos;
-      });
-
-      // set to showedInGeneralPageDicts searched results
+      const subString: string = action.payload;
       state.showedInGeneralPageDicts = [];
-      uniqueIndexes.forEach((value, i) => {
-        state.showedInGeneralPageDicts[i] = state.allDicts[value];
+
+      state.allDicts.forEach((obj) => {
+        const curObj = Object.values(obj);
+        curObj.forEach((value) => {
+          value.toString().toLowerCase().includes(subString.toLowerCase()) &&
+            state.showedInGeneralPageDicts.push(obj);
+        });
       });
     },
 
