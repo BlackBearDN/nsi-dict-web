@@ -66,32 +66,6 @@ $border: #d9d5ec;
       background: $whiteBlue;
       border-radius: 0 0 8px 8px;
       border-top: 1px solid $border;
-      &_version {
-        display: flex;
-        flex-direction: column;
-        .version {
-          margin: 0 0 5px 0;
-          span {
-
-          }
-        }
-        .relevant {
-          margin: 0;
-          padding: 0 10px;
-          border-radius: 10px;
-          width: fit-content;
-          display: flex;
-          align-items: center;
-          i {
-            font-size: 4px;
-            padding-right: 5px;
-          }
-          span {
-            font-size: 12px;
-            font-weight: 500;
-          }
-        }
-      }
     }
   }
 }

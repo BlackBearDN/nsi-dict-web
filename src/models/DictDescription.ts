@@ -1,4 +1,4 @@
-export interface IDictDescription {
+export interface DictDescription {
   'dictionaryName': string;
   'fieldDescription': object;
   'correctPermission': null;

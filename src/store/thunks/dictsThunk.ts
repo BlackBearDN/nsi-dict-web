@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { getAllDicts, getCurrentDict, getCurrentDictDescription } from '../services/DictsService';
+import { getAllDicts, getCurrentDict, getCurrentDictDescription } from '../../services/dictsService';
 
 export const fetchAllDicts = createAsyncThunk(
   'dictionary',

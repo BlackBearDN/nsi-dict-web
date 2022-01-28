@@ -5,20 +5,19 @@ import {
   SerializedError,
 } from '@reduxjs/toolkit';
 
-import { IDict } from '../../models/IDict';
-import { IDictDescription } from '../../models/IDictDescription';
+import { Dict } from '../../models/Dict';
+import { DictDescription } from '../../models/DictDescription';
 import {
   fetchAllDicts,
   fetchCurrentDict,
   fetchCurrentDictDescription,
-} from '../actionCreators';
+} from '../thunks/dictsThunk';
 
 export interface DictsState {
-  allDicts: IDict[];
-  showedInGeneralPageDicts: IDict[];
+  allDicts: Dict[];
+  showedInGeneralPageDicts: Dict[];
   currentDict: any[] | null;
-  currentDictDescription: IDictDescription | null;
-  loading: boolean;
+  currentDictDescription: DictDescription | null;
   error: SerializedError | null;
 }
 
@@ -27,7 +26,6 @@ const initialState: DictsState = {
   showedInGeneralPageDicts: [],
   currentDict: null,
   currentDictDescription: null,
-  loading: false,
   error: null,
 };
 
@@ -41,7 +39,7 @@ export const dictsSlice = createSlice({
       const subString: string = action.payload;
       state.showedInGeneralPageDicts = [];
 
-      state.allDicts.forEach((obj: IDict) => {
+      state.allDicts.forEach((obj: Dict) => {
         const objValues = Object.values(obj);
         for (const value of objValues) {
           if (value.toString().toLowerCase().includes(subString.toLowerCase())) {
@@ -59,45 +57,36 @@ export const dictsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllDicts.pending, (state) => {
-        state.loading = true;
         state.error = null;
       })
       .addCase(fetchAllDicts.fulfilled, (state, action) => {
         state.allDicts = action.payload;
         state.showedInGeneralPageDicts = state.allDicts;
-        state.loading = false;
         state.error = null;
       })
       .addCase(fetchAllDicts.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error;
       });
     builder
       .addCase(fetchCurrentDict.pending, (state) => {
-        state.loading = true;
         state.error = null;
       })
       .addCase(fetchCurrentDict.fulfilled, (state, action) => {
         state.currentDict = action.payload;
-        state.loading = false;
         state.error = null;
       })
       .addCase(fetchCurrentDict.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error;
       });
     builder
       .addCase(fetchCurrentDictDescription.pending, (state) => {
-        state.loading = true;
         state.error = null;
       })
       .addCase(fetchCurrentDictDescription.fulfilled, (state, action) => {
         state.currentDictDescription = action.payload;
-        state.loading = false;
         state.error = null;
       })
       .addCase(fetchCurrentDictDescription.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.error;
       });
   },

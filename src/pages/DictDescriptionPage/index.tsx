@@ -7,7 +7,7 @@ import '../../components/DescPageContentSection';
 
 import {
   fetchCurrentDictDescription,
-} from '../../store/actionCreators';
+} from '../../store/thunks/dictsThunk';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import DescPageContentSection from '../../components/DescPageContentSection';
 

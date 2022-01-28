@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import dictsReducer from './reducers/dictsSlice';
+import dictsReducer from './slices/dictsSlice';
 
 const rootReducer = combineReducers({
   dictsReducer,

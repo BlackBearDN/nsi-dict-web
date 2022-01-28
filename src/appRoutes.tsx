@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import GeneralPage from './pages/generalPage';
-import DictDescriptionPage from './pages/dictDescriptionPage';
+import GeneralPage from './pages/GeneralPage';
+import DictDescriptionPage from './pages/DictDescriptionPage';
 
 const AppRoutes: React.FC = () => {
   return (

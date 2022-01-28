@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import './style.scss';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchCurrentDict } from '../../store/actionCreators';
-import { setNullCurrentDictArray } from '../../store/reducers/dictsSlice';
+import { fetchCurrentDict } from '../../store/thunks/dictsThunk';
+import { setNullCurrentDictArray } from '../../store/slices/dictsSlice';
 import Loader from '../Loader';
 
 const DescPageContentSection: React.FC = () => {
@@ -38,28 +38,28 @@ const DescPageContentSection: React.FC = () => {
                     <div className="deskPageContentSection__line deskPageContentSection__names">
                         {
                             currentDict && Object.keys(currentDict[0]).map((value, key) => {
-                                return <p key={key}>{value !== '' ? value : 'Неизвестно'}</p>;
+                                return <p key={key}>{value}</p>;
                             })
                         }
                     </div>
                     {
                         currentDict && currentDict.map((obj, key) => {
-                            return (
-                              <div className="deskPageContentSection__line" key={key}>
-                                  {
-                                      Object.values(obj)
-                                        .map((value, key) => {
-                                            return (
-                                              <p key={key}>
-                                                  {typeof value == 'boolean' && (value ? 'Да' : 'Нет')}
-                                                  {typeof value == 'string' && value}
-                                                  {typeof value == 'number' && value.toString()}
-                                              </p>
-                                            );
-                                        })
-                                  }
-                              </div>
-                            );
+                          return (
+                            <div className="deskPageContentSection__line" key={key}>
+                              {
+                                Object.values(obj)
+                                  .map((value, key) => {
+                                    return (
+                                      <p key={key}>
+                                        {typeof value == 'boolean' && (value ? 'Да' : 'Нет')}
+                                        {typeof value == 'string' && value}
+                                        {typeof value == 'number' && value.toString()}
+                                      </p>
+                                    );
+                                  })
+                              }
+                            </div>
+                          );
                         })
                     }
                 </div>

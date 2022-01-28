@@ -1,4 +1,4 @@
-import reducer, { DictsState, searchDicts } from '../../store/reducers/dictsSlice';
+import reducer, { DictsState, searchDicts } from './/dictsSlice';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const dictsAdapter = createEntityAdapter();
@@ -53,7 +53,6 @@ const initialState: DictsState = {
   ],
   currentDict: [{}],
   currentDictDescription: null,
-  loading: false,
   error: null,
 };
 

@@ -1,5 +1,5 @@
-import reducer, { DictsState } from '../store/reducers/dictsSlice';
-import { fetchAllDicts, fetchCurrentDict, fetchCurrentDictDescription } from './actionCreators';
+import reducer, { DictsState } from '../slices/dictsSlice';
+import { fetchAllDicts, fetchCurrentDict, fetchCurrentDictDescription } from './dictsThunk';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
 describe('dictsFetch endpoints', () => {
@@ -9,7 +9,6 @@ describe('dictsFetch endpoints', () => {
     showedInGeneralPageDicts: [],
     currentDict: [{}],
     currentDictDescription: null,
-    loading: false,
     error: null,
   };
 
@@ -21,7 +20,6 @@ describe('dictsFetch endpoints', () => {
       showedInGeneralPageDicts: [],
       currentDict: [{}],
       currentDictDescription: null,
-      loading: true,
       error: null,
       entities: {},
       ids: [],
@@ -63,7 +61,6 @@ describe('dictsFetch endpoints', () => {
       ],
       currentDict: [{}],
       currentDictDescription: null,
-      loading: false,
       error: null,
       entities: {},
       ids: [],
@@ -105,7 +102,6 @@ describe('dictsFetch endpoints', () => {
         expandable: true,
       }],
       currentDictDescription: null,
-      loading: false,
       error: null,
       entities: {},
       ids: [],

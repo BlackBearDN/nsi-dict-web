@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import './style.scss';
 
-import { fetchAllDicts } from '../../store/actionCreators';
+import { fetchAllDicts } from '../../store/thunks/dictsThunk';
 import Loader from '../../components/Loader';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { searchDicts } from '../../store/reducers/dictsSlice';
+import { searchDicts } from '../../store/slices/dictsSlice';
 
 const GeneralPage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { showedInGeneralPageDicts, loading } = useAppSelector((state) => state.dictsReducer);
+  const { showedInGeneralPageDicts } = useAppSelector((state) => state.dictsReducer);
 
   useEffect(() => {
     dispatch(fetchAllDicts());
@@ -62,7 +62,7 @@ const GeneralPage: React.FC = () => {
                 );
               })
           }
-          {loading && <Loader />}
+          {!showedInGeneralPageDicts.length && <Loader />}
         </div>
         <div className="table__footer"></div>
       </div>
