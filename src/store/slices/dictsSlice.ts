@@ -14,16 +14,16 @@ import {
 } from '../thunks/dictsThunk';
 
 export interface DictsState {
-  allDicts: Dict[];
-  showedInGeneralPageDicts: Dict[];
+  allDicts: Dict[] | null;
+  showedInGeneralPageDicts: Dict[] | null;
   currentDict: any[] | null;
   currentDictDescription: DictDescription | null;
   error: SerializedError | null;
 }
 
 const initialState: DictsState = {
-  allDicts: [],
-  showedInGeneralPageDicts: [],
+  allDicts: null,
+  showedInGeneralPageDicts: null,
   currentDict: null,
   currentDictDescription: null,
   error: null,
@@ -39,17 +39,23 @@ export const dictsSlice = createSlice({
       const subString: string = action.payload;
       state.showedInGeneralPageDicts = [];
 
-      state.allDicts.forEach((obj: Dict) => {
+      state.allDicts?.forEach((obj: Dict) => {
         const objValues = Object.values(obj);
         for (const value of objValues) {
           if (value.toString().toLowerCase().includes(subString.toLowerCase())) {
-            state.showedInGeneralPageDicts.push(obj);
+            state.showedInGeneralPageDicts?.push(obj);
             break;
           }
         }
       });
     },
 
+    setNullAllDicts(state) {
+      state.allDicts = null;
+    },
+    setNullShowedInGeneralPageDicts(state) {
+      state.showedInGeneralPageDicts = null;
+    },
     setNullCurrentDictArray(state) {
       state.currentDict = null;
     },
@@ -92,5 +98,5 @@ export const dictsSlice = createSlice({
   },
 });
 
-export const { searchDicts, setNullCurrentDictArray } = dictsSlice.actions;
+export const { searchDicts, setNullCurrentDictArray, setNullAllDicts, setNullShowedInGeneralPageDicts } = dictsSlice.actions;
 export default dictsSlice.reducer;

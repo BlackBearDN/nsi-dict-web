@@ -200,6 +200,24 @@ $border: #d9d5ec;
           }
         }
       }
+      &_null {
+        width: 100%;
+        height: 65vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          text-align: center;
+          flex-basis: 0;
+          flex-grow: 1;
+          min-width: 100px;
+          padding: 5px;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 15px;
+          letter-spacing: 0.05em;
+        }
+      }
     }
     &__footer {
       width: calc(100% - 40px);

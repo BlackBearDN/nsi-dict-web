@@ -33,7 +33,7 @@ const DescPageContentSection: React.FC = () => {
     return (
       <div className="deskPageContentSection">
           {
-              currentDict.length &&
+              currentDict.length ?
                 <div>
                     <div className="deskPageContentSection__line deskPageContentSection__names">
                         {
@@ -52,8 +52,7 @@ const DescPageContentSection: React.FC = () => {
                                     return (
                                       <p key={key}>
                                         {typeof value == 'boolean' && (value ? 'Да' : 'Нет')}
-                                        {typeof value == 'string' && value}
-                                        {typeof value == 'number' && value.toString()}
+                                        {typeof value != 'boolean' && value}
                                       </p>
                                     );
                                   })
@@ -63,6 +62,8 @@ const DescPageContentSection: React.FC = () => {
                         })
                     }
                 </div>
+                :
+                ''
           }
           {
               !currentDict.length &&

@@ -6,14 +6,25 @@ import './style.scss';
 import { fetchAllDicts } from '../../store/thunks/dictsThunk';
 import Loader from '../../components/Loader';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { searchDicts } from '../../store/slices/dictsSlice';
+import {
+  searchDicts,
+  setNullAllDicts,
+  setNullShowedInGeneralPageDicts,
+} from '../../store/slices/dictsSlice';
+import GeneralPageProps from '../../models/GeneralPageProps';
 
-const GeneralPage: React.FC = () => {
+const GeneralPage: React.FC<GeneralPageProps> = ({ title = 'NSI DICT' }) => {
   const dispatch = useAppDispatch();
   const { showedInGeneralPageDicts } = useAppSelector((state) => state.dictsReducer);
 
   useEffect(() => {
+    document.title = title;
     dispatch(fetchAllDicts());
+
+    return () => {
+      dispatch(setNullAllDicts());
+      dispatch(setNullShowedInGeneralPageDicts());
+    };
   }, []);
 
   return (
@@ -62,7 +73,11 @@ const GeneralPage: React.FC = () => {
                 );
               })
           }
-          {!showedInGeneralPageDicts.length && <Loader />}
+          {!showedInGeneralPageDicts && <Loader />}
+          {!showedInGeneralPageDicts?.length &&
+            <div className={'table__contentSection_null'}>
+              <p>Ничего не найдено</p>
+            </div>}
         </div>
         <div className="table__footer"></div>
       </div>

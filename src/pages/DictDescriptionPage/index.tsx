@@ -5,13 +5,12 @@ import './style.scss';
 
 import '../../components/DescPageContentSection';
 
-import {
-  fetchCurrentDictDescription,
-} from '../../store/thunks/dictsThunk';
+import { fetchCurrentDictDescription } from '../../store/thunks/dictsThunk';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import DescPageContentSection from '../../components/DescPageContentSection';
+import DictDescriptionPageProps from '../../models/DictDescriptionPageProps';
 
-const DictDescriptionPage: React.FC = () => {
+const DictDescriptionPage: React.FC<DictDescriptionPageProps> = ({ title = 'Dict' }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,6 +19,8 @@ const DictDescriptionPage: React.FC = () => {
   const currentLocation = location.pathname.slice(1);
 
   useEffect(() => {
+    document.title = title;
+
     dispatch(fetchCurrentDictDescription(currentLocation));
   }, []);
 
@@ -27,6 +28,7 @@ const DictDescriptionPage: React.FC = () => {
     <div className="dictDescriptionPage">
       <p className="pageTitle">
         { currentDictDescription && currentDictDescription.dictionaryName }
+
       </p>
 
       <div className="table">
